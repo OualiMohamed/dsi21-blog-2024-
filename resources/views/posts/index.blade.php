@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    @include('layouts.navigation')
     <div class="container py-4">
         <table class="table">
             <thead>
