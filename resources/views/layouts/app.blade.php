@@ -10,7 +10,8 @@
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <!-- Fonts -->
     <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
+    <!--  Core theme CSS -->
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <!-- Styles -->
     <style></style>
 </head>
