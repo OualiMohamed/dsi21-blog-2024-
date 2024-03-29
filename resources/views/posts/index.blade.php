@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+    <a href="{{ url('posts/create') }}" class="btn btn-primary">New Post</a>
+    <h2 class="py-4">Posts List</h2>
     <table class="table">
         <thead>
             <tr>
