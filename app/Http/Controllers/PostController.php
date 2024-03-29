@@ -26,7 +26,7 @@ class PostController extends Controller
         // Récupérer la liste des utilisateurs
         $authors = User::all();
         // Récupérer la liste des catégories
-        $categories = Category::all(); 
+        $categories = Category::all();
 
         return view('posts.create', compact('authors', 'categories'));
     }
@@ -36,6 +36,15 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        // Validation
+        $request->validate([
+            'title' => 'required|min:5',
+            'content' => 'required|min:10',
+            'user_id' => 'required|exists:users,id',
+            'category_id' => 'required|exists:categories,id',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        
         // Créer un Post vide
         $newPost = new Post();
 
