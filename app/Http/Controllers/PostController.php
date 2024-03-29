@@ -74,7 +74,16 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // Récupérer le Post à partir de son id
+        $post = Post::findOrFail($id);
+
+        // Récupérer la liste des utilisateurs
+        $authors = User::all();
+
+        // Récupérer la liste des catégories
+        $categories = Category::all();
+
+        return view('posts.edit', compact('post', 'authors', 'categories'));
     }
 
     /**
@@ -82,7 +91,34 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Validation du formulaire
+        $request->validate($this->validationRules());
+
+        // Récupérer le Post à modifier
+        $post = Post::findOrFail($id);
+
+        if ($request->hasFile('image')) {
+            // Deleting old image from storage
+            $oldImage = $post->image;
+            if (Storage::disk('public')->exists($oldImage)) {
+                Storage::disk('public')->delete($oldImage);
+            }
+            // Add new image to storage
+            $newImage = Storage::disk('public')->put('posts', $request->file('image'));
+            // Add new image to DB
+            $post->image = $newImage;
+        }
+
+        // Mettre à jour le post avec le contenu du formulaire
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->user_id = $request->user_id;
+        $post->category_id = $request->category_id;
+
+        // Enregister le Post mis à jour
+        $post->save();
+
+        return redirect()->route('posts.show', $post->id)->with('success', 'Post updated successfully');
     }
 
     /**
