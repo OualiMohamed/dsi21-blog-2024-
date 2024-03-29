@@ -48,7 +48,7 @@ class PostController extends Controller
         // Sauvegarde dans la BD
         $newPost->save();
 
-        return redirect()->route('posts.show', $newPost->id);
+        return redirect()->route('posts.show', $newPost->id)->with('success', 'Post created successfully');
     }
 
     /**
