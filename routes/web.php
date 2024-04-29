@@ -21,4 +21,7 @@ Route::get('/', function () {
 Route::resource('posts', PostController::class);
 Auth::routes();
 
+// Simple User Route
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Admin User Route
+Route::get('/admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home');
